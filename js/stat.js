@@ -17,6 +17,7 @@ var renderCloud = function (ctx, x, y, color) {
 };
 
 var getMaxElement = function (arr) {
+
   let maxElement = arr[0];
 
   for (let i = 1; i < arr.length; i++) {
