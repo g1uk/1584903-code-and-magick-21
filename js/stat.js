@@ -1,22 +1,26 @@
 'use strict';
 
-var CLOUD_WIDTH = 420;
-var CLOUD_HEIGHT = 270;
-var CLOUD_X = 100;
-var CLOUD_Y = 90;
-var GAP = 10;
-var BAR_GAP = 20;
-var FONT_GAP = 15;
-var TEXT_HEIGHT = 50;
-var BAR_WIDTH = 50;
-var barHeight = CLOUD_HEIGHT - BAR_GAP - TEXT_HEIGHT - BAR_GAP * 2;
+const WHITE_COLOR = `#fff`;
+const BLACK_COLOR = `#000`;
+const RED_COLOR = `rgba(255, 0, 0, 1)`;
+const FONT_STYLE = `16px PT Mono`;
+const CLOUD_WIDTH = 420;
+const CLOUD_HEIGHT = 270;
+const CLOUD_X = 100;
+const CLOUD_Y = 90;
+const GAP = 10;
+const BAR_GAP = 20;
+const FONT_GAP = 15;
+const TEXT_HEIGHT = 50;
+const BAR_WIDTH = 50;
+const barHeight = CLOUD_HEIGHT - BAR_GAP - TEXT_HEIGHT - BAR_GAP * 2;
 
-var renderCloud = function (ctx, x, y, color) {
+const renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-var getMaxElement = function (arr) {
+const getMaxElement = function (arr) {
 
   let maxElement = arr[0];
 
@@ -30,7 +34,7 @@ var getMaxElement = function (arr) {
 
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, GAP * 2, `rgba(0, 0, 0, 0.7)`);
-  renderCloud(ctx, CLOUD_X, GAP, `#fff`);
+  renderCloud(ctx, CLOUD_X, GAP, WHITE_COLOR);
 
   let maxTime = getMaxElement(times);
 
@@ -40,13 +44,13 @@ window.renderStatistics = function (ctx, players, times) {
 
     ctx.fillStyle = `hsl(240, ${randomSaturation}%, 50%)`;
     if (players[i] === `Вы`) {
-      ctx.fillStyle = `rgba(255, 0, 0, 1)`;
+      ctx.fillStyle = RED_COLOR;
     }
     ctx.fillRect(
         CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i,
         CLOUD_Y - ((barHeight * times[i]) / maxTime - barHeight), BAR_WIDTH, (barHeight * times[i]) / maxTime);
 
-    ctx.fillStyle = `#000`;
+    ctx.fillStyle = BLACK_COLOR;
     ctx.fillText(
         players[i],
         CLOUD_X + GAP + FONT_GAP +
@@ -57,8 +61,8 @@ window.renderStatistics = function (ctx, players, times) {
     );
 
   }
-  ctx.fillStyle = `#000`;
-  ctx.font = `16px PT Mono`;
-  ctx.fillText(`Ура вы победили!`, 110, 40);
-  ctx.fillText(`Список результатов:`, 110, 60);
+  ctx.fillStyle = BLACK_COLOR;
+  ctx.font = FONT_STYLE;
+  ctx.fillText(`Ура вы победили!`, CLOUD_X + GAP, TEXT_HEIGHT - GAP);
+  ctx.fillText(`Список результатов:`, CLOUD_X + GAP, TEXT_HEIGHT + GAP);
 };
