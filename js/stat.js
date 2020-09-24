@@ -40,7 +40,7 @@ window.renderStatistics = function (ctx, players, times) {
 
 
   for (let i = 0; i < players.length; i++) {
-    let randomSaturation = Math.random() * (i * 25);
+    let randomSaturation = Math.floor(Math.random() * players.length);
 
     ctx.fillStyle = `hsl(240, ${randomSaturation}%, 50%)`;
     if (players[i] === `Вы`) {
